@@ -59,8 +59,11 @@ public class MemberDAO extends DAO{
         return select(query);
     }
 
-    public ArrayList<Member> selectByID(int id) {
-        return null;
+    public Member selectByID(int id) {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER + " WHERE "
+                + DatabaseHandler.MEMBER_COLUMN_ID + " = " + id;
+        ArrayList<Member> members = select(query);
+        return members.size() > 0 ? members.get(0) : null;
     }
 
     public ArrayList<Member> selectByName(String name) {

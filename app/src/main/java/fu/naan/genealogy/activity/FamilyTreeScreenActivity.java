@@ -4,16 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.blox.graphview.BaseGraphAdapter;
@@ -26,7 +25,11 @@ import de.blox.graphview.tree.BuchheimWalkerAlgorithm;
 import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 import fu.naan.genealogy.R;
 import fu.naan.genealogy.dao.FamilyNodeDAO;
+import fu.naan.genealogy.dao.MemberDAO;
+import fu.naan.genealogy.dao.MemberInNodeDAO;
 import fu.naan.genealogy.entity.FamilyNode;
+import fu.naan.genealogy.entity.Member;
+import fu.naan.genealogy.entity.MemberInNode;
 
 public class FamilyTreeScreenActivity extends AppCompatActivity {
 
@@ -60,8 +63,26 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
             }
             @Override
             public void onBindViewHolder(ViewHolder viewHolder, Object data, int position) {
-                CusFamilyNode familyNode = (CusFamilyNode)viewHolder;
-                familyNode.textView.setText(data.toString());
+                CusFamilyNode familyNodeView = (CusFamilyNode)viewHolder;
+                int nodeID = Integer.parseInt(data.toString());
+                ArrayList<MemberInNode> memberInNodes = new MemberInNodeDAO(getContext()).selectByNodeID(nodeID);
+                for (MemberInNode memberInNode : memberInNodes) {
+                    LinearLayout linearLayout = new LinearLayout(getContext());
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    ImageView imageView = new ImageView(getContext());
+                    imageView.setImageResource(R.mipmap.ic_launcher_round);
+                    TextView textView = new TextView(getContext());
+                    MemberDAO memberDAO = new MemberDAO(getContext());
+                    Member member = memberDAO.selectByID(memberInNode.getMemberID());
+                    String memberName;
+                    if (member == null) memberName = "Member null " + memberInNode.getMemberID() ;
+                    else if (member.getMemberName() == null) memberName = "MemberName null";
+                    else memberName = member.getMemberName();
+                    textView.setText(memberName);
+                    linearLayout.addView(imageView);
+                    linearLayout.addView(textView);
+                    familyNodeView.parentLinearLayout.addView(linearLayout);
+                }
             }
         };
         graphView.setAdapter(adapter);
@@ -107,11 +128,11 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
     }
 
     private class CusFamilyNode extends ViewHolder {
-        TextView textView;
+        LinearLayout parentLinearLayout;
 
         CusFamilyNode(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            parentLinearLayout = itemView.findViewById(R.id.parentLinearLayout);
         }
     }
 }

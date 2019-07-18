@@ -75,6 +75,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(9,'Person 9')");
         db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(10,'Person 10')");
         db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(11,'Person 11')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(12,'Person 12')");
 
         db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(1,-1)");
         db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(2,1)");
