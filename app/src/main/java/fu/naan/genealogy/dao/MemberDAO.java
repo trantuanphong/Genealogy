@@ -2,6 +2,7 @@ package fu.naan.genealogy.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -35,9 +36,33 @@ public class MemberDAO extends DAO{
     public int delete(Member member) {
         return 0;
     }
+
+    private ArrayList<Member> select(String query) {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        ArrayList<Member> members = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_NAME));
+                members.add(new Member(id,name));
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        db.close();
+        return members;
+    }
+
+    public ArrayList<Member> selectAll() {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER;
+        return select(query);
+    }
+
     public ArrayList<Member> selectByID(int id) {
         return null;
     }
+
     public ArrayList<Member> selectByName(String name) {
         return null;
     }

@@ -6,15 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.blox.graphview.BaseGraphAdapter;
+import de.blox.graphview.Edge;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
 import de.blox.graphview.Node;
@@ -22,43 +25,30 @@ import de.blox.graphview.ViewHolder;
 import de.blox.graphview.tree.BuchheimWalkerAlgorithm;
 import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 import fu.naan.genealogy.R;
-import fu.naan.genealogy.entity.Member;
+import fu.naan.genealogy.dao.FamilyNodeDAO;
+import fu.naan.genealogy.entity.FamilyNode;
 
 public class FamilyTreeScreenActivity extends AppCompatActivity {
+
+    private FamilyNodeDAO familyNodeDAO;
+    private GraphView graphView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_tree_screen);
-        GraphView graphView = findViewById(R.id.graph);
+        graphView = findViewById(R.id.graph);
 
-        // example tree00
-        final Graph graph = new Graph();
+        Graph graph = new Graph();
+        familyNodeDAO = new FamilyNodeDAO(this);
+        ArrayList<Node> nodes = loadFamilyNode();
 
-        final Node node1 = new Node(new Member(1,"A"));
-        final Node node2 = new Node(new Member(2,"B"));
-        final Node node3 = new Node(new Member(3,"C"));
-        final Node node4 = new Node(new Member(4,"D"));
-        final Node node5 = new Node(new Member(1,"E"));
-        final Node node6 = new Node(new Member(1,"F"));
-        final Node node8 = new Node(new Member(1,"G"));
-        final Node node7 = new Node(new Member(1,"H"));
-        final Node node9 = new Node(new Member(1,"I"));
-        final Node node10 = new Node(new Member(1,"J"));
-        final Node node11 = new Node(new Member(1,"K"));
-        final Node node12 = new Node(new Member(1,"L"));
-
-        graph.addEdge(node1, node2);
-        graph.addEdge(node1, node3);
-        graph.addEdge(node1, node4);
-        graph.addEdge(node2, node5);
-        graph.addEdge(node2, node6);
-        graph.addEdge(node6, node7);
-        graph.addEdge(node6, node8);
-        graph.addEdge(node4, node9);
-        graph.addEdge(node4, node10);
-        graph.addEdge(node4, node11);
-        graph.addEdge(node11, node12);
+        ArrayList<Edge> edges = loadNodeRelationship();
+        for (Edge edge : edges) {
+            int source = Integer.parseInt(edge.getSource().getData().toString());
+            int destination = Integer.parseInt(edge.getDestination().getData().toString());
+            graph.addEdge(nodes.get(source-1),nodes.get(destination-1));
+        }
 
         // you can set the graph via the constructor or use the adapter.setGraph(Graph) method
         final BaseGraphAdapter<ViewHolder> adapter = new BaseGraphAdapter<ViewHolder>(graph) {
@@ -66,18 +56,12 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
             @Override
             public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.node_member, parent, false);
-                return new FamilyNode(view);
+                return new CusFamilyNode(view);
             }
             @Override
             public void onBindViewHolder(ViewHolder viewHolder, Object data, int position) {
-                FamilyNode familyNode = (FamilyNode)viewHolder;
+                CusFamilyNode familyNode = (CusFamilyNode)viewHolder;
                 familyNode.textView.setText(data.toString());
-                familyNode.textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getContext(),data.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         };
         graphView.setAdapter(adapter);
@@ -96,10 +80,36 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
         return this;
     }
 
-    private class FamilyNode extends ViewHolder {
+    private ArrayList<Edge> loadNodeRelationship() {
+        FamilyNode root = familyNodeDAO.selectByParentID(-1).get(0);
+        return recursive(new Node(root),root, new ArrayList<Edge>());
+    }
+
+    private ArrayList<Node> loadFamilyNode() {
+        ArrayList<FamilyNode> familyNodes = familyNodeDAO.selectAll();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (FamilyNode familyNode : familyNodes) {
+            nodes.add(new Node(familyNode));
+        }
+        return nodes;
+    }
+
+    private ArrayList<Edge> recursive(Node parent, FamilyNode root, ArrayList<Edge> edges) {
+        ArrayList<FamilyNode> children = familyNodeDAO.selectByParentID(root.getNodeID());
+        for (FamilyNode child : children) {
+            final Node childNode = new Node(child);
+            Edge edge = new Edge(parent, new Node(child));
+            edges.add(edge);
+            Log.i("hihi",edge.getSource().getData().toString() + " " + edge.getDestination().getData().toString());
+            recursive(childNode,child, edges);
+        }
+        return edges;
+    }
+
+    private class CusFamilyNode extends ViewHolder {
         TextView textView;
 
-        FamilyNode(View itemView) {
+        CusFamilyNode(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
         }

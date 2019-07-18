@@ -1,17 +1,17 @@
 package fu.naan.genealogy.entity;
 
-public class Node {
+public class FamilyNode {
     private int NodeID;
     private int ParentID;
 
-    public Node() {
+    public FamilyNode() {
     }
 
-    public Node(int nodeID) {
+    public FamilyNode(int nodeID) {
         NodeID = nodeID;
     }
 
-    public Node(int nodeID, int parentID) {
+    public FamilyNode(int nodeID, int parentID) {
         NodeID = nodeID;
         ParentID = parentID;
     }
@@ -30,5 +30,10 @@ public class Node {
 
     public void setParentID(int parentID) {
         ParentID = parentID;
+    }
+
+    @Override
+    public String toString() {
+        return getNodeID() + "";
     }
 }
