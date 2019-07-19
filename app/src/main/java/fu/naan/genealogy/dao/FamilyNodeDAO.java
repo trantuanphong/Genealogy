@@ -3,6 +3,7 @@ package fu.naan.genealogy.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class FamilyNodeDAO extends DAO{
     public ArrayList<FamilyNode> selectByNodeID(int id) {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_NODE + " WHERE "
                 + DatabaseHandler.NODE_COLUMN_ID + " = " + id;
+        Log.i("hihi",query);
         return select(query);
     }
 

@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import fu.naan.genealogy.entity.Member;
 import fu.naan.genealogy.handler.DatabaseHandler;
@@ -45,7 +48,8 @@ public class MemberDAO extends DAO{
             while (!cursor.isAfterLast()) {
                 int id = cursor.getInt(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_NAME));
-                members.add(new Member(id,name));
+                String dob = cursor.getString(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_DOB));
+                members.add(new Member(id,name,stringToDate(dob)));
                 cursor.moveToNext();
             }
         }
@@ -54,8 +58,26 @@ public class MemberDAO extends DAO{
         return members;
     }
 
+    private Date stringToDate(String dob) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+        } catch (Exception e) {
+            return Calendar.getInstance().getTime();
+        }
+    }
+
     public ArrayList<Member> selectAll() {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER;
+        return select(query);
+    }
+
+    public ArrayList<Member> selectByNodeId(int nodeId) {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER_IN_NODE + " LEFT JOIN "
+                + DatabaseHandler.TABLE_MEMBER + " ON "
+                + DatabaseHandler.TABLE_MEMBER_IN_NODE + "." + DatabaseHandler.MEMBER_IN_NODE_COLUMN_MEMBER_ID
+                + " = "
+                + DatabaseHandler.TABLE_MEMBER + "." + DatabaseHandler.MEMBER_COLUMN_ID
+                + " WHERE " + DatabaseHandler.TABLE_MEMBER + "." + DatabaseHandler.MEMBER_COLUMN_ID + " = " + nodeId;
         return select(query);
     }
 

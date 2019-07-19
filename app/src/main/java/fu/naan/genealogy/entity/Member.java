@@ -24,6 +24,12 @@ public class Member {
         this.memberName = memberName;
     }
 
+    public Member(int memberID, String memberName, Date DOB) {
+        this.memberID = memberID;
+        this.memberName = memberName;
+        this.DOB = DOB;
+    }
+
     public Member(String memberName, Date DOB, Date DOD, int isAlive, String avatar) {
         this.memberName = memberName;
         this.DOB = DOB;

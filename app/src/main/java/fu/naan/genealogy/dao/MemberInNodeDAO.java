@@ -3,6 +3,7 @@ package fu.naan.genealogy.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,9 @@ public class MemberInNodeDAO extends DAO{
         return select(query);
     }
     public ArrayList<MemberInNode> selectByMemberID(int id) {
-        return null;
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER_IN_NODE + " WHERE "
+                + DatabaseHandler.MEMBER_IN_NODE_COLUMN_MEMBER_ID + " = " + id;
+        return select(query);
     }
 
     private ArrayList<MemberInNode> select(String query) {

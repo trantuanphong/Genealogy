@@ -64,18 +64,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void initDefaultData(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(1,'Person 1')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(2,'Person 2')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(3,'Person 3')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(4,'Person 4')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(5,'Person 5')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(6,'Person 6')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(7,'Person 7')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(8,'Person 8')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(9,'Person 9')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(10,'Person 10')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(11,'Person 11')");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName) VALUES(12,'Person 12')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(1,'Person 1','22/12/1900')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(2,'Person 2','01/10/1910')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(3,'Person 3','21/02/1940')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(4,'Person 4','21/03/1944')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(5,'Person 5','11/11/1950')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(6,'Person 6','11/11/1950')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(7,'Person 7','11/11/1980')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(8,'Person 8','02/02/1980')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(9,'Person 9','02/02/1981')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(10,'Person 10','02/02/1985')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(11,'Person 11','02/02/1988')");
+        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB) VALUES(12,'Person 12','10/10/2000')");
 
         db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(1,-1)");
         db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(2,1)");

@@ -7,11 +7,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,7 @@ import de.blox.graphview.ViewHolder;
 import de.blox.graphview.tree.BuchheimWalkerAlgorithm;
 import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 import fu.naan.genealogy.R;
+import fu.naan.genealogy.algorithm.IdentifyRelationship;
 import fu.naan.genealogy.dao.FamilyNodeDAO;
 import fu.naan.genealogy.dao.MemberDAO;
 import fu.naan.genealogy.dao.MemberInNodeDAO;
@@ -35,12 +39,19 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
 
     private FamilyNodeDAO familyNodeDAO;
     private GraphView graphView;
+    private Button button;
+    TextView text1, text2;
+    int id1, id2;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_tree_screen);
         graphView = findViewById(R.id.graph);
+        button = findViewById(R.id.button);
+        text1 = findViewById(R.id.member1);
+        text2 = findViewById(R.id.member2);
 
         Graph graph = new Graph();
         familyNodeDAO = new FamilyNodeDAO(this);
@@ -69,8 +80,7 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                 for (MemberInNode memberInNode : memberInNodes) {
                     LinearLayout linearLayout = new LinearLayout(getContext());
                     linearLayout.setOrientation(LinearLayout.VERTICAL);
-                    ImageView imageView = new ImageView(getContext());
-                    imageView.setImageResource(R.mipmap.ic_launcher_round);
+
                     TextView textView = new TextView(getContext());
                     MemberDAO memberDAO = new MemberDAO(getContext());
                     Member member = memberDAO.selectByID(memberInNode.getMemberID());
@@ -79,6 +89,29 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                     else if (member.getMemberName() == null) memberName = "MemberName null";
                     else memberName = member.getMemberName();
                     textView.setText(memberName);
+
+                    ImageView imageView = new ImageView(getContext());
+                    imageView.setImageResource(R.mipmap.ic_launcher_round);
+                    imageView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if (count == 2) {
+                                count = 0;
+                                text1.setText("");
+                                text2.setText("");
+                            }
+                            if (count == 0) {
+                                text1.setText(member.getMemberID() + " " + member.getMemberName());
+                                id1 = member.getMemberID();
+                            } else {
+                                text2.setText(member.getMemberID() + " " + member.getMemberName());
+                                id2 = member.getMemberID();
+                            }
+                            count++;
+                            return false;
+                        }
+                    });
+
                     linearLayout.addView(imageView);
                     linearLayout.addView(textView);
                     familyNodeView.parentLinearLayout.addView(linearLayout);
@@ -134,5 +167,10 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
             super(itemView);
             parentLinearLayout = itemView.findViewById(R.id.parentLinearLayout);
         }
+    }
+
+    public void identify(View view) {
+        String text = new IdentifyRelationship(getContext()).identify(id1,id2);
+        Toast.makeText(this, text,Toast.LENGTH_SHORT).show();
     }
 }
