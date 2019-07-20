@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,6 +91,9 @@ public class MemberDAO extends DAO{
     }
 
     public ArrayList<Member> selectByName(String name) {
-        return null;
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER + " WHERE "
+                + DatabaseHandler.MEMBER_COLUMN_NAME + " LIKE '%" + name + "%'";
+        return select(query);
     }
+
 }
