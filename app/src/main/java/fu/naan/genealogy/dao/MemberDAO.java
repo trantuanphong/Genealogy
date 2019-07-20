@@ -49,7 +49,8 @@ public class MemberDAO extends DAO{
                 int id = cursor.getInt(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_NAME));
                 String dob = cursor.getString(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_DOB));
-                members.add(new Member(id,name,stringToDate(dob)));
+                int gender = cursor.getInt(cursor.getColumnIndex(DatabaseHandler.MEMBER_COLUMN_GENDER));
+                members.add(new Member(id,name,stringToDate(dob),gender));
                 cursor.moveToNext();
             }
         }

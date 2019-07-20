@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,7 +41,6 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
 
     private FamilyNodeDAO familyNodeDAO;
     private GraphView graphView;
-    private Button button;
     TextView text1, text2;
     int id1, id2;
     int count = 0;
@@ -49,7 +50,6 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_tree_screen);
         graphView = findViewById(R.id.graph);
-        button = findViewById(R.id.button);
         text1 = findViewById(R.id.member1);
         text2 = findViewById(R.id.member2);
 
@@ -89,6 +89,7 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                     else if (member.getMemberName() == null) memberName = "MemberName null";
                     else memberName = member.getMemberName();
                     textView.setText(memberName);
+                    textView.setGravity(Gravity.CENTER);
 
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageResource(R.mipmap.ic_launcher_round);
@@ -101,10 +102,10 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                                 text2.setText("");
                             }
                             if (count == 0) {
-                                text1.setText(member.getMemberID() + " " + member.getMemberName());
+                                text1.setText(member.getMemberName());
                                 id1 = member.getMemberID();
                             } else {
-                                text2.setText(member.getMemberID() + " " + member.getMemberName());
+                                text2.setText(member.getMemberName());
                                 id2 = member.getMemberID();
                             }
                             count++;

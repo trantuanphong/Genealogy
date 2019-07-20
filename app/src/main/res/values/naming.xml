@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+        <string name="caoTangTo">Cao Tằng Tổ</string>
+        <string name="caoTangTi">Cao Tằng Tỉ</string>
+        <string name="kyOng">Kỵ Ông</string>
+        <string name="kyBa">Kỵ Bà</string>
+        <string name="cuOng">Cụ Ông</string>
+        <string name="cuBa">Cụ Bà</string>
+        <string name="ong">Ông</string>
+        <string name="ba">Bà</string>
+        <string name="bacTrai">Bác Trai</string>
+        <string name="bacGai">Bác Gái</string>
+        <string name="bo">Bố</string>
+        <string name="me">Mẹ</string>
+        <string name="chu">Chú</string>
+        <string name="co">Cô</string>
+        <string name="anh">Anh</string>
+        <string name="chi">Chị</string>
+        <string name="chong">Chồng</string>
+        <string name="vo">Vợ</string>
+        <string name="emTrai">Em Trai</string>
+        <string name="emGai">Em Gái</string>
+        <string name="conTrai">Con Trai</string>
+        <string name="conGai">Con Gái</string>
+        <string name="chauTrai">Cháu Trai</string>
+        <string name="chauGai">Cháu Gái</string>
+        <string name="chatNam">Chắt Nam</string>
+        <string name="chatNu">Chắt Nữ</string>
+        <string name="huyenTonNam">Huyền Tôn Nam</string>
+        <string name="huyenTonNu">Huyền Tôn Nữ</string>
 </resources>

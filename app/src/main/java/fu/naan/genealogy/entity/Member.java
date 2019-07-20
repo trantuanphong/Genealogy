@@ -7,6 +7,7 @@ public class Member {
     private String memberName;
     private Date DOB;
     private Date DOD;
+    private int gender;
     private int isAlive;
     private String avatar;
     private String motherID;
@@ -24,10 +25,11 @@ public class Member {
         this.memberName = memberName;
     }
 
-    public Member(int memberID, String memberName, Date DOB) {
+    public Member(int memberID, String memberName, Date DOB, int gender) {
         this.memberID = memberID;
         this.memberName = memberName;
         this.DOB = DOB;
+        this.gender = gender;
     }
 
     public Member(String memberName, Date DOB, Date DOD, int isAlive, String avatar) {
@@ -121,6 +123,14 @@ public class Member {
 
     public void setFatherID(String fatherID) {
         this.fatherID = fatherID;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     @Override
