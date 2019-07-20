@@ -4,15 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -89,13 +88,14 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                     else if (member.getMemberName() == null) memberName = "MemberName null";
                     else memberName = member.getMemberName();
                     textView.setText(memberName);
+                    textView.setTextColor(Color.WHITE);
                     textView.setGravity(Gravity.CENTER);
 
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageResource(R.mipmap.ic_launcher_round);
-                    imageView.setOnTouchListener(new View.OnTouchListener() {
+                    imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public boolean onTouch(View v, MotionEvent event) {
+                        public void onClick(View v) {
                             if (count == 2) {
                                 count = 0;
                                 text1.setText("");
@@ -109,6 +109,14 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                                 id2 = member.getMemberID();
                             }
                             count++;
+                        }
+                    });
+                    imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent intent = new Intent(getContext(),MemberDetailScreenActivity.class);
+                            intent.putExtra("memberID", member.getMemberID());
+                            getContext().startActivity(intent);
                             return false;
                         }
                     });
