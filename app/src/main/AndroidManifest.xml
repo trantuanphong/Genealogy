@@ -18,18 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.SearchScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".activity.SettingScreenActivity" />
         <activity android:name=".activity.MemberDetailScreenActivity" />
         <activity android:name=".activity.AddFamilyMemberScreenActivity" />
         <activity android:name=".activity.SplashScreenActivity" />
-        <activity android:name=".activity.HomeScreenActivity" />
         <activity android:name=".activity.FamilyTreeScreenActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

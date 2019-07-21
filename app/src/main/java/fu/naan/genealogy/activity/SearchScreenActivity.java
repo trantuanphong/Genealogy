@@ -9,6 +9,7 @@ import android.widget.SearchView;
 
 import fu.naan.genealogy.R;
 import fu.naan.genealogy.adapter.ListMemberRecycleAdapter;
+import fu.naan.genealogy.common.Common;
 import fu.naan.genealogy.dao.MemberDAO;
 
 public class SearchScreenActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -19,8 +20,7 @@ public class SearchScreenActivity extends AppCompatActivity implements SearchVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_screen);
-
+        Common.constructDefaultLayout(this,R.layout.activity_search_screen,R.id.searchScreen);
         memberDAO = new MemberDAO(this);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);

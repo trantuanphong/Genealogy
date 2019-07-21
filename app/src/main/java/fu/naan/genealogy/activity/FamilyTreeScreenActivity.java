@@ -29,6 +29,7 @@ import de.blox.graphview.tree.BuchheimWalkerAlgorithm;
 import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 import fu.naan.genealogy.R;
 import fu.naan.genealogy.algorithm.IdentifyRelationship;
+import fu.naan.genealogy.common.Common;
 import fu.naan.genealogy.dao.FamilyNodeDAO;
 import fu.naan.genealogy.dao.MemberDAO;
 import fu.naan.genealogy.dao.MemberInNodeDAO;
@@ -47,7 +48,8 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_family_tree_screen);
+        Common.constructDefaultLayout(this,R.layout.activity_family_tree_screen,R.id.familyTreeScreen);
+
         graphView = findViewById(R.id.graph);
         text1 = findViewById(R.id.member1);
         text2 = findViewById(R.id.member2);
