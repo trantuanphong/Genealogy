@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="caoTangTo">Cao Tằng Tổ</string>
-        <string name="caoTangTi">Cao Tằng Tỉ</string>
-        <string name="kyOng">Kỵ Ông</string>
-        <string name="kyBa">Kỵ Bà</string>
-        <string name="cuOng">Cụ Ông</string>
-        <string name="cuBa">Cụ Bà</string>
-        <string name="ong">Ông</string>
-        <string name="ba">Bà</string>
-        <string name="bacTrai">Bác Trai</string>
-        <string name="bacGai">Bác Gái</string>
-        <string name="bo">Bố</string>
-        <string name="me">Mẹ</string>
-        <string name="chu">Chú</string>
-        <string name="co">Cô</string>
-        <string name="anh">Anh</string>
-        <string name="chi">Chị</string>
-        <string name="chong">Chồng</string>
-        <string name="vo">Vợ</string>
-        <string name="emTrai">Em Trai</string>
-        <string name="emGai">Em Gái</string>
-        <string name="conTrai">Con Trai</string>
-        <string name="conGai">Con Gái</string>
-        <string name="chauTrai">Cháu Trai</string>
-        <string name="chauGai">Cháu Gái</string>
-        <string name="chatNam">Chắt Nam</string>
-        <string name="chatNu">Chắt Nữ</string>
-        <string name="huyenTonNam">Huyền Tôn Nam</string>
-        <string name="huyenTonNu">Huyền Tôn Nữ</string>
+        <string name="ga5m">Cao Tằng Tổ</string>
+        <string name="ga5f">Cao Tằng Tỉ</string>
+
+        <string name="ga4m">Kỵ Ông</string>
+        <string name="ga4f">Kỵ Bà</string>
+
+        <string name="ga3m">Cụ Ông</string>
+        <string name="ga3f">Cụ Bà</string>
+
+        <string name="ga2m">Ông</string>
+        <string name="ga2f">Bà</string>
+
+        <string name="ga1em">Bác Trai</string>
+        <string name="ga1ef">Bác Gái</string>
+        <string name="ga1m">Bố</string>
+        <string name="ga1f">Mẹ</string>
+        <string name="ga1ym">Chú</string>
+        <string name="ga1yf">Cô</string>
+
+        <string name="g0em">Anh</string>
+        <string name="g0ef">Chị</string>
+        <string name="g0m">Chồng</string>
+        <string name="g0f">Vợ</string>
+        <string name="g0ym">Em Trai</string>
+        <string name="g0yf">Em Gái</string>
+
+        <string name="gu1em">Cháu Trai</string>
+        <string name="gu1ef">Cháu Gái</string>
+        <string name="gu1m">Con Trai</string>
+        <string name="gu1f">Con Gái</string>
+
+        <string name="gu2m">Cháu Trai</string>
+        <string name="gu2f">Cháu Gái</string>
+
+        <string name="gu3m">Chắt Nam</string>
+        <string name="gu3f">Chắt Nữ</string>
+
+        <string name="gu4m">Chắt Nam</string>
+        <string name="gu4f">Chắt Nữ</string>
+
+        <string name="gu5m">Huyền Tôn Nam</string>
+        <string name="gu5f">Huyền Tôn Nữ</string>
 </resources>

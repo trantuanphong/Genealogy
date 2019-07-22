@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 import fu.naan.genealogy.R;
 import fu.naan.genealogy.algorithm.IdentifyRelationship;
 import fu.naan.genealogy.common.Common;
+import fu.naan.genealogy.common.DataSaver;
 import fu.naan.genealogy.dao.FamilyNodeDAO;
 import fu.naan.genealogy.dao.MemberDAO;
 import fu.naan.genealogy.dao.MemberInNodeDAO;
@@ -139,6 +141,8 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                 .setOrientation(BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM)
                 .build();
         adapter.setAlgorithm(new BuchheimWalkerAlgorithm(configuration));
+
+        new DataSaver(this).initDefaultData(this);
     }
 
     private Context getContext() {
@@ -184,4 +188,5 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
         String text = new IdentifyRelationship(getContext()).identify(id1,id2);
         Toast.makeText(this, text,Toast.LENGTH_SHORT).show();
     }
+
 }

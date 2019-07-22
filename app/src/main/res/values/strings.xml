@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Genealogy</string>
+    <string name="ga5">Generation A5+</string>
+    <string name="ga4">Generation A4</string>
+    <string name="ga3">Generation A3</string>
+    <string name="ga2">Generation A2</string>
+    <string name="ga1">Generation A1</string>
+    <string name="g0">Generation 0</string>
+    <string name="gu1">Generation U1</string>
+    <string name="gu2">Generation U2</string>
+    <string name="gu3">Generation U3</string>
+    <string name="gu4">Generation U4</string>
+    <string name="gu5">Generation U5</string>
 </resources>

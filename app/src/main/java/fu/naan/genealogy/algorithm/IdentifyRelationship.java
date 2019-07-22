@@ -25,91 +25,91 @@ public class IdentifyRelationship {
 
         if (memberPath1.get(0).getNodeID() == memberPath2.get(0).getNodeID()) {
             switch (gender) {
-                case 0: return context.getString(R.string.chong);
-                case 1: return context.getString(R.string.vo);
+                case 0: return context.getString(R.string.g0m);
+                case 1: return context.getString(R.string.g0f);
             }
         }
 
         if (res >= 5) { //cao tang to
             switch (gender) {
-                case 0: return context.getString(R.string.caoTangTo);
-                case 1: return context.getString(R.string.caoTangTi);
+                case 0: return context.getString(R.string.ga5m);
+                case 1: return context.getString(R.string.ga5f);
             }
         } else if (res <= -5) {
             switch (gender) {
-                case 0: return context.getString(R.string.huyenTonNam);
-                case 1: return context.getString(R.string.huyenTonNu);
+                case 0: return context.getString(R.string.gu5m);
+                case 1: return context.getString(R.string.gu5f);
             }
         } else {
                 MemberDAO memberDAO = new MemberDAO(context);
                 switch (res) {
                     case 4: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.kyOng);
-                            case 1: return context.getString(R.string.kyBa);
+                            case 0: return context.getString(R.string.ga4m);
+                            case 1: return context.getString(R.string.ga4f);
                         }
                     }
                     case -4:{
                         switch (gender) {
-                            case 0: return context.getString(R.string.chatNam);
-                            case 1: return context.getString(R.string.chatNu);
+                            case 0: return context.getString(R.string.gu4m);
+                            case 1: return context.getString(R.string.gu4f);
                         }
                     }
                     case 3: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.cuOng);
-                            case 1: return context.getString(R.string.cuBa);
+                            case 0: return context.getString(R.string.ga3m);
+                            case 1: return context.getString(R.string.ga3f);
                         }
                     }
                     case -3: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.chauTrai);
-                            case 1: return context.getString(R.string.chauGai);
+                            case 0: return context.getString(R.string.gu3m);
+                            case 1: return context.getString(R.string.gu3f);
                         }
                     }
                     case 2: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.ong);
-                            case 1: return context.getString(R.string.ba);
+                            case 0: return context.getString(R.string.ga2m);
+                            case 1: return context.getString(R.string.ga2f);
                         }
                     }
                     case -2: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.chauTrai);
-                            case 1: return context.getString(R.string.chauGai);
+                            case 0: return context.getString(R.string.gu2m);
+                            case 1: return context.getString(R.string.gu2f);
                         }
                     }
                     case 1: {//bo me, co di, chu bac, cau mo
                         if (memberPath2.get(0).getParentID() == memberPath1.get(0).getNodeID()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.bo);
-                                case 1: return context.getString(R.string.me);
+                                case 0: return context.getString(R.string.ga1m);
+                                case 1: return context.getString(R.string.ga1f);
                             }
                         }
                         Member member1 = memberDAO.selectByNodeId(memberPath2.get(1).getNodeID()).get(0);
                         Member member2 = memberDAO.selectByNodeId(memberPath1.get(0).getNodeID()).get(0);
                         if (member1.getDOB().getTime() > member2.getDOB().getTime()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.bacTrai);
-                                case 1: return context.getString(R.string.bacGai);
+                                case 0: return context.getString(R.string.ga1em);
+                                case 1: return context.getString(R.string.ga1ef);
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.chu);
-                                case 1: return context.getString(R.string.co);
+                                case 0: return context.getString(R.string.ga1ym);
+                                case 1: return context.getString(R.string.ga1yf);
                             }
                         }
                     }
                     case -1: {//con, chau
                         if (memberPath2.get(0).getNodeID() == memberPath1.get(1).getNodeID()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.conTrai);
-                                case 1: return context.getString(R.string.conGai);
+                                case 0: return context.getString(R.string.gu1m);
+                                case 1: return context.getString(R.string.gu1f);
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.chauTrai);
-                                case 1: return context.getString(R.string.chauGai);
+                                case 0: return context.getString(R.string.gu1em);
+                                case 1: return context.getString(R.string.gu1ef);
                             }
                         }
                     }
@@ -125,13 +125,13 @@ public class IdentifyRelationship {
                         Member member2 = memberDAO.selectByNodeId(memberPath1.get(position).getNodeID()).get(0);
                         if (member1.getDOB().getTime() > member2.getDOB().getTime()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.anh);
-                                case 1: return context.getString(R.string.chi);
+                                case 0: return context.getString(R.string.g0em);
+                                case 1: return context.getString(R.string.g0ef);
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.emTrai);
-                                case 1: return context.getString(R.string.emGai);
+                                case 0: return context.getString(R.string.g0ym);
+                                case 1: return context.getString(R.string.g0yf);
                             }
                         }
                     }
