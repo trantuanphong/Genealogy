@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_MEMBER = "CREATE TABLE " +
                 TABLE_MEMBER + "("
-                + MEMBER_COLUMN_ID + " INTEGER PRIMARY KEY, "
+                + MEMBER_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + MEMBER_COLUMN_NAME + " TEXT, "
                 + MEMBER_COLUMN_DOB + " TEXT, "
                 + MEMBER_COLUMN_DOD + " TEXT, "
@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_NODE = "CREATE TABLE " +
                 TABLE_NODE + "("
-                + NODE_COLUMN_ID + " INTEGER PRIMARY KEY, "
+                + NODE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NODE_COLUMN_PARENT_NODE + " INTEGER" + ")";
         db.execSQL(CREATE_TABLE_NODE);
 
@@ -66,28 +66,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void initDefaultData(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(1,'Person 1','22/12/1900', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(2,'Person 2','01/10/1910', 1)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(3,'Person 3','21/02/1940', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(4,'Person 4','21/03/1944', 1)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(5,'Person 5','11/11/1950', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(6,'Person 6','11/11/1950', 1)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(7,'Person 7','11/11/1980', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(8,'Person 8','02/02/1980', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(9,'Person 9','02/02/1981', 1)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(10,'Person 10','02/02/1985', 0)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(11,'Person 11','02/02/1988', 1)");
-        db.execSQL("INSERT INTO Member(MemberID, MemberName, DOB, Gender) VALUES(12,'Person 12','10/10/2000', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 1','22/12/1900', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 2','01/10/1910', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 3','21/02/1940', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 4','21/03/1944', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 5','11/11/1950', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 6','11/11/1950', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 7','11/11/1980', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 8','02/02/1980', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 9','02/02/1981', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 10','02/02/1985', 0)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 11','02/02/1988', 1)");
+        db.execSQL("INSERT INTO Member(MemberName, DOB, Gender) VALUES('Person 12','10/10/2000', 1)");
 
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(1,-1)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(2,1)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(3,1)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(4,1)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(5,2)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(6,2)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(7,3)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(8,3)");
-        db.execSQL("INSERT INTO FamilyNode(NodeID,ParentID) VALUES(9,7)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(-1)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(1)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(1)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(1)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(2)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(2)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(3)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(3)");
+        db.execSQL("INSERT INTO FamilyNode(ParentID) VALUES(7)");
 
         db.execSQL("INSERT INTO MemberInNode(NodeID, MemberID) VALUES(1,1)");
         db.execSQL("INSERT INTO MemberInNode(NodeID, MemberID) VALUES(1,2)");

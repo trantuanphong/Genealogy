@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,15 @@ public class MemberInNodeDAO extends DAO{
     public int update(MemberInNode memberInNode) {
         return 0;
     }
-    public int delete(MemberInNode memberInNode) {
-        return 0;
+
+    public int deleteByMemberID(int memberID) {
+        int result = -1;
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        result = db.delete(DatabaseHandler.TABLE_MEMBER_IN_NODE,
+                DatabaseHandler.MEMBER_IN_NODE_COLUMN_MEMBER_ID + " = ?",
+                new String[]{String.valueOf(memberID)});
+        db.close();
+        return result;
     }
     public ArrayList<MemberInNode> selectByNodeID(int id) {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_MEMBER_IN_NODE

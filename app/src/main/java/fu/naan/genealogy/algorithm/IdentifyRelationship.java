@@ -1,10 +1,11 @@
 package fu.naan.genealogy.algorithm;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
-import fu.naan.genealogy.R;
+import fu.naan.genealogy.common.DataSaver;
 import fu.naan.genealogy.dao.FamilyNodeDAO;
 import fu.naan.genealogy.dao.MemberDAO;
 import fu.naan.genealogy.dao.MemberInNodeDAO;
@@ -14,9 +15,11 @@ import fu.naan.genealogy.entity.Member;
 public class IdentifyRelationship {
 
     private Context context;
+    private DataSaver dataSaver;
 
     public IdentifyRelationship(Context context) {
         this.context = context;
+        dataSaver = new DataSaver(context);
     }
 
     private String getNaming(Member member, ArrayList<FamilyNode> memberPath1, ArrayList<FamilyNode> memberPath2) {
@@ -25,91 +28,91 @@ public class IdentifyRelationship {
 
         if (memberPath1.get(0).getNodeID() == memberPath2.get(0).getNodeID()) {
             switch (gender) {
-                case 0: return context.getString(R.string.g0m);
-                case 1: return context.getString(R.string.g0f);
+                case 0: return dataSaver.getG0M();
+                case 1: return dataSaver.getG0F();
             }
         }
 
         if (res >= 5) { //cao tang to
             switch (gender) {
-                case 0: return context.getString(R.string.ga5m);
-                case 1: return context.getString(R.string.ga5f);
+                case 0: return dataSaver.getGA5M();
+                case 1: return dataSaver.getGA5F();
             }
         } else if (res <= -5) {
             switch (gender) {
-                case 0: return context.getString(R.string.gu5m);
-                case 1: return context.getString(R.string.gu5f);
+                case 0: return dataSaver.getGU5M();
+                case 1: return dataSaver.getGU5F();
             }
         } else {
                 MemberDAO memberDAO = new MemberDAO(context);
                 switch (res) {
                     case 4: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.ga4m);
-                            case 1: return context.getString(R.string.ga4f);
+                            case 0: return dataSaver.getGA4M();
+                            case 1: return dataSaver.getGA4F();
                         }
                     }
                     case -4:{
                         switch (gender) {
-                            case 0: return context.getString(R.string.gu4m);
-                            case 1: return context.getString(R.string.gu4f);
+                            case 0: return dataSaver.getGU4M();
+                            case 1: return dataSaver.getGU4F();
                         }
                     }
                     case 3: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.ga3m);
-                            case 1: return context.getString(R.string.ga3f);
+                            case 0: return dataSaver.getGA3M();
+                            case 1: return dataSaver.getGA3F();
                         }
                     }
                     case -3: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.gu3m);
-                            case 1: return context.getString(R.string.gu3f);
+                            case 0: return dataSaver.getGU3M();
+                            case 1: return dataSaver.getGU3F();
                         }
                     }
                     case 2: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.ga2m);
-                            case 1: return context.getString(R.string.ga2f);
+                            case 0: return dataSaver.getGA2M();
+                            case 1: return dataSaver.getGA2F();
                         }
                     }
                     case -2: {
                         switch (gender) {
-                            case 0: return context.getString(R.string.gu2m);
-                            case 1: return context.getString(R.string.gu2f);
+                            case 0: return dataSaver.getGU2M();
+                            case 1: return dataSaver.getGU2F();
                         }
                     }
                     case 1: {//bo me, co di, chu bac, cau mo
                         if (memberPath2.get(0).getParentID() == memberPath1.get(0).getNodeID()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.ga1m);
-                                case 1: return context.getString(R.string.ga1f);
+                                case 0: return dataSaver.getGA1M();
+                                case 1: return dataSaver.getGA1F();
                             }
                         }
                         Member member1 = memberDAO.selectByNodeId(memberPath2.get(1).getNodeID()).get(0);
                         Member member2 = memberDAO.selectByNodeId(memberPath1.get(0).getNodeID()).get(0);
                         if (member1.getDOB().getTime() > member2.getDOB().getTime()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.ga1em);
-                                case 1: return context.getString(R.string.ga1ef);
+                                case 0: return dataSaver.getGA1EM();
+                                case 1: return dataSaver.getGA1EF();
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.ga1ym);
-                                case 1: return context.getString(R.string.ga1yf);
+                                case 0: return dataSaver.getGA1YM();
+                                case 1: return dataSaver.getGA1YF();
                             }
                         }
                     }
                     case -1: {//con, chau
                         if (memberPath2.get(0).getNodeID() == memberPath1.get(1).getNodeID()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.gu1m);
-                                case 1: return context.getString(R.string.gu1f);
+                                case 0: return dataSaver.getGU1M();
+                                case 1: return dataSaver.getGU1F();
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.gu1em);
-                                case 1: return context.getString(R.string.gu1ef);
+                                case 0: return dataSaver.getGU1EM();
+                                case 1: return dataSaver.getGU1EF();
                             }
                         }
                     }
@@ -117,21 +120,22 @@ public class IdentifyRelationship {
                         int position = 0;
                         for (int i = 0; i < memberPath2.size(); i++) {
                             if (memberPath2.get(i).getNodeID() == memberPath1.get(i).getNodeID()) {
-                                position = i - 1;
+                                position = i-1;
                                 break;
                             }
                         }
                         Member member1 = memberDAO.selectByNodeId(memberPath2.get(position).getNodeID()).get(0);
                         Member member2 = memberDAO.selectByNodeId(memberPath1.get(position).getNodeID()).get(0);
+
                         if (member1.getDOB().getTime() > member2.getDOB().getTime()) {
                             switch (gender) {
-                                case 0: return context.getString(R.string.g0em);
-                                case 1: return context.getString(R.string.g0ef);
+                                case 0: return dataSaver.getG0EM();
+                                case 1: return dataSaver.getG0EF();
                             }
                         } else {
                             switch (gender) {
-                                case 0: return context.getString(R.string.g0ym);
-                                case 1: return context.getString(R.string.g0yf);
+                                case 0: return dataSaver.getG0YM();
+                                case 1: return dataSaver.getG0YF();
                             }
                         }
                     }

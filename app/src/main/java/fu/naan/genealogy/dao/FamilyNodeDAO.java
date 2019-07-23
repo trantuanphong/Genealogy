@@ -22,8 +22,18 @@ public class FamilyNodeDAO extends DAO{
     public int update(FamilyNode familyNode) {
         return 0;
     }
-    public int delete(FamilyNode familyNode) {
-        return 0;
+    public int deleteByNodeID(int nodeID) {
+        int result = -1;
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        result = db.delete(DatabaseHandler.TABLE_NODE, DatabaseHandler.NODE_COLUMN_ID + " = ?",
+                new String[]{String.valueOf(nodeID)});
+        db.close();
+        return result;
+    }
+    public boolean hadChildren(int id) {
+        String query = "SELECT * FROM " + DatabaseHandler.TABLE_NODE + " WHERE "
+                + DatabaseHandler.NODE_COLUMN_PARENT_NODE + " = " + id;
+        return select(query).size() > 0;
     }
     public ArrayList<FamilyNode> selectByParentID(int id) {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_NODE + " WHERE "
@@ -34,7 +44,6 @@ public class FamilyNodeDAO extends DAO{
     public ArrayList<FamilyNode> selectByNodeID(int id) {
         String query = "SELECT * FROM " + DatabaseHandler.TABLE_NODE + " WHERE "
                 + DatabaseHandler.NODE_COLUMN_ID + " = " + id;
-        Log.i("hihi",query);
         return select(query);
     }
 

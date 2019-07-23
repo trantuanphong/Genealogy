@@ -11,6 +11,17 @@
     <string name="gu3">Generation U3</string>
     <string name="gu4">Generation U4</string>
     <string name="gu5">Generation U5</string>
+    <string name="memberid">MemberID</string>
+    <string name="membername">MemberName</string>
+    <string name="dob">DOB</string>
+    <string name="not_assigned">Not assigned</string>
+    <string name="dod">DOD</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="radio_male">radio_male</string>
+    <string name="radio_female">radio_female</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
     <string name="add_lbl_title">NEW MEMBER</string>
     <string name="add_lbl_name">Name</string>
     <string name="add_txt_name">Enter member name</string>
@@ -29,4 +40,6 @@
     <string name="add_btn_upload">Upload</string>
     <string name="add_btn_add">Create</string>
     <string name="add_lbl_dod">Date of Death</string>
+    <string name="add_btn_search_member">Search</string>
+    <string name="add_lbl_relationship_member">Member Name</string>
 </resources>

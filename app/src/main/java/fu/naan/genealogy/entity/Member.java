@@ -1,5 +1,7 @@
 package fu.naan.genealogy.entity;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class Member {
@@ -8,9 +10,10 @@ public class Member {
     private Date DOB;
     private Date DOD;
     private int gender;
-    private String avatar;
-    private int motherID;
-    private int fatherID;
+    private int isAlive;
+    private Bitmap avatar;
+    private String motherID;
+    private String fatherID;
 
     public Member() {
     }
@@ -24,6 +27,12 @@ public class Member {
         this.memberName = memberName;
     }
 
+    public Member(String memberName, Date DOB, int gender) {
+        this.memberName = memberName;
+        this.DOB = DOB;
+        this.gender = gender;
+    }
+
     public Member(int memberID, String memberName, Date DOB, int gender) {
         this.memberID = memberID;
         this.memberName = memberName;
@@ -31,27 +40,45 @@ public class Member {
         this.gender = gender;
     }
 
-    public Member(String memberName, Date DOB, Date DOD, int isAlive, String avatar) {
+    public Member(String memberName, Date DOB, int gender, Bitmap avatar) {
         this.memberName = memberName;
         this.DOB = DOB;
-        this.DOD = DOD;
+        this.gender = gender;
         this.avatar = avatar;
     }
 
-    public Member(String memberName, Date DOB, Date DOD, String avatar, int motherID, int fatherID) {
+    public Member(String memberName, Date DOB, Date DOD, int isAlive, Bitmap avatar) {
         this.memberName = memberName;
         this.DOB = DOB;
         this.DOD = DOD;
+        this.isAlive = isAlive;
+        this.avatar = avatar;
+    }
+
+    public Member(int memberID, String memberName, Date DOB, int gender, Bitmap avatar) {
+        this.memberID = memberID;
+        this.memberName = memberName;
+        this.DOB = DOB;
+        this.gender = gender;
+        this.avatar = avatar;
+    }
+
+    public Member(String memberName, Date DOB, Date DOD, int isAlive, Bitmap avatar, String motherID, String fatherID) {
+        this.memberName = memberName;
+        this.DOB = DOB;
+        this.DOD = DOD;
+        this.isAlive = isAlive;
         this.avatar = avatar;
         this.motherID = motherID;
         this.fatherID = fatherID;
     }
 
-    public Member(int memberID, String memberName, Date DOB, Date DOD, String avatar, int motherID, int fatherID) {
+    public Member(int memberID, String memberName, Date DOB, Date DOD, int isAlive, Bitmap avatar, String motherID, String fatherID) {
         this.memberID = memberID;
         this.memberName = memberName;
         this.DOB = DOB;
         this.DOD = DOD;
+        this.isAlive = isAlive;
         this.avatar = avatar;
         this.motherID = motherID;
         this.fatherID = fatherID;
@@ -89,27 +116,35 @@ public class Member {
         this.DOD = DOD;
     }
 
-    public String getAvatar() {
+    public int getIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(int isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    public Bitmap getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Bitmap avatar) {
         this.avatar = avatar;
     }
 
-    public int getMotherID() {
+    public String getMotherID() {
         return motherID;
     }
 
-    public void setMotherID(int motherID) {
+    public void setMotherID(String motherID) {
         this.motherID = motherID;
     }
 
-    public int getFatherID() {
+    public String getFatherID() {
         return fatherID;
     }
 
-    public void setFatherID(int fatherID) {
+    public void setFatherID(String fatherID) {
         this.fatherID = fatherID;
     }
 

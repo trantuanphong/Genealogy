@@ -3,6 +3,9 @@ package fu.naan.genealogy.common;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +20,12 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import fu.naan.genealogy.R;
 import fu.naan.genealogy.activity.AddFamilyMemberScreenActivity;
 import fu.naan.genealogy.activity.FamilyTreeScreenActivity;
@@ -26,6 +35,9 @@ import fu.naan.genealogy.activity.SettingScreenActivity;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class Common {
+
+    public static int GALLERY = 1, CAMERA = 2;
+    public static int FOR_RESULT = 1001;
 
     public static void constructDefaultLayout(AppCompatActivity activity, int layoutID, int viewID) {
         includeLayout(activity,layoutID,viewID);
@@ -121,5 +133,37 @@ public class Common {
                 animation.start();
             }
         });
+    }
+
+    public static String dateFormat(Date date){
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateFormat =  formatter.format(date);
+        return dateFormat;
+    }
+    public static Date stringToDate(String dob) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+        } catch (Exception e) {
+            return Calendar.getInstance().getTime();
+        }
+    }
+
+    public static Bitmap stringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+
+    public static byte[] convertBitmapToByte(Bitmap yourBitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        yourBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
+        return bArray;
     }
 }

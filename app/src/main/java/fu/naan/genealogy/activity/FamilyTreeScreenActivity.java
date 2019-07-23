@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Edge;
@@ -42,29 +41,29 @@ import fu.naan.genealogy.entity.MemberInNode;
 public class FamilyTreeScreenActivity extends AppCompatActivity {
 
     private FamilyNodeDAO familyNodeDAO;
-    private GraphView graphView;
-    TextView text1, text2;
-    int id1, id2;
+    StoredData choice1, choice2;
     int count = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Common.constructDefaultLayout(this,R.layout.activity_family_tree_screen,R.id.familyTreeScreen);
 
-        graphView = findViewById(R.id.graph);
-        text1 = findViewById(R.id.member1);
-        text2 = findViewById(R.id.member2);
+        choice1 = new StoredData();
+        choice2 = new StoredData();
+
+        GraphView graphView = findViewById(R.id.graph);
+//        text1 = findViewById(R.id.member1);
+//        text2 = findViewById(R.id.member2);
 
         Graph graph = new Graph();
         familyNodeDAO = new FamilyNodeDAO(this);
-        ArrayList<Node> nodes = loadFamilyNode();
+        HashMap<Integer,Node> nodes = loadFamilyNode();
 
         ArrayList<Edge> edges = loadNodeRelationship();
         for (Edge edge : edges) {
             int source = Integer.parseInt(edge.getSource().getData().toString());
             int destination = Integer.parseInt(edge.getDestination().getData().toString());
-            graph.addEdge(nodes.get(source-1),nodes.get(destination-1));
+            graph.addEdge(nodes.get(source),nodes.get(destination));
         }
 
         // you can set the graph via the constructor or use the adapter.setGraph(Graph) method
@@ -87,32 +86,45 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
                     TextView textView = new TextView(getContext());
                     MemberDAO memberDAO = new MemberDAO(getContext());
                     Member member = memberDAO.selectByID(memberInNode.getMemberID());
-                    String memberName;
-                    if (member == null) memberName = "Member null " + memberInNode.getMemberID() ;
-                    else if (member.getMemberName() == null) memberName = "MemberName null";
-                    else memberName = member.getMemberName();
-                    textView.setText(memberName);
-                    textView.setTextColor(Color.WHITE);
+
+                    textView.setText(member.getMemberName());
                     textView.setGravity(Gravity.CENTER);
+                    int color;
+                    if (member.getGender() == 1) {
+                        color = Color.MAGENTA;
+                    } else {
+                        color = Color.CYAN;
+                    }
+                    textView.setTextColor(color);
 
                     ImageView imageView = new ImageView(getContext());
-                    imageView.setImageResource(R.mipmap.ic_launcher_round);
+                    if (member.getAvatar() != null) {
+                        imageView.setImageBitmap(member.getAvatar());
+                    } else {
+                        imageView.setImageResource(R.mipmap.ic_launcher_round);
+                    }
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (count == 2) {
-                                count = 0;
-                                text1.setText("");
-                                text2.setText("");
-                            }
-                            if (count == 0) {
-                                text1.setText(member.getMemberName());
-                                id1 = member.getMemberID();
+                            if (member.getMemberID() == choice1.getId()) {
+                                choice1.unChoose();
+                                count--;
+                            } else if (member.getMemberID() == choice2.getId()) {
+                                choice2.unChoose();
+                                count--;
                             } else {
-                                text2.setText(member.getMemberName());
-                                id2 = member.getMemberID();
+                                if (count == 2) {
+                                    count = 0;
+                                    choice1.unChoose();
+                                    choice2.unChoose();
+                                }
+                                if (count == 0) {
+                                    choice1.choose(member.getMemberID(), color, textView);
+                                } else {
+                                    choice2.choose(member.getMemberID(), color, textView);
+                                }
+                                count++;
                             }
-                            count++;
                         }
                     });
                     imageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -154,11 +166,11 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
         return recursive(new Node(root),root, new ArrayList<Edge>());
     }
 
-    private ArrayList<Node> loadFamilyNode() {
+    private HashMap<Integer,Node> loadFamilyNode() {
         ArrayList<FamilyNode> familyNodes = familyNodeDAO.selectAll();
-        ArrayList<Node> nodes = new ArrayList<>();
+        HashMap<Integer,Node> nodes = new HashMap<>();
         for (FamilyNode familyNode : familyNodes) {
-            nodes.add(new Node(familyNode));
+            nodes.put(familyNode.getNodeID(),new Node(familyNode));
         }
         return nodes;
     }
@@ -169,7 +181,6 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
             final Node childNode = new Node(child);
             Edge edge = new Edge(parent, new Node(child));
             edges.add(edge);
-            Log.i("hihi",edge.getSource().getData().toString() + " " + edge.getDestination().getData().toString());
             recursive(childNode,child, edges);
         }
         return edges;
@@ -184,9 +195,36 @@ public class FamilyTreeScreenActivity extends AppCompatActivity {
         }
     }
 
+    private class StoredData {
+        private int id, color;
+        private TextView textView;
+
+        public StoredData() {id = -1;}
+
+        void unChoose() {
+            textView.setTextColor(color);
+            id = -1;
+        }
+
+         void choose(int chooseId, int currentColor, TextView textView) {
+            id = chooseId;
+            color = currentColor;
+            this.textView = textView;
+            textView.setTextColor(Color.YELLOW);
+        }
+
+        int getId() {
+            return id;
+        }
+    }
+
     public void identify(View view) {
-        String text = new IdentifyRelationship(getContext()).identify(id1,id2);
-        Toast.makeText(this, text,Toast.LENGTH_SHORT).show();
+        if (count < 2) {
+            Toast.makeText(this,"Please select 2 people!", Toast.LENGTH_LONG).show();
+        } else {
+            String text = new IdentifyRelationship(getContext()).identify(choice1.getId(),choice2.getId());
+            Toast.makeText(this, text,Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

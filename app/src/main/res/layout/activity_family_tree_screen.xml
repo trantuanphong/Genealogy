@@ -7,29 +7,13 @@
     android:orientation="vertical"
     tools:context=".activity.FamilyTreeScreenActivity">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/member1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="identify"
-            android:text="Identify" />
-
-        <TextView
-            android:id="@+id/member2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:onClick="identify"
+        android:text="Identify" />
 
     <LinearLayout
         android:layout_width="match_parent"

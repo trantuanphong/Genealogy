@@ -22,11 +22,11 @@ public class SearchScreenActivity extends AppCompatActivity implements SearchVie
         super.onCreate(savedInstanceState);
         Common.constructDefaultLayout(this,R.layout.activity_search_screen,R.id.searchScreen);
         memberDAO = new MemberDAO(this);
-
+        boolean forResult = getIntent().getBooleanExtra("forResult",false);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        listMemberRecycleAdapter = new ListMemberRecycleAdapter(this,memberDAO.selectByName(""));
+        listMemberRecycleAdapter = new ListMemberRecycleAdapter(this,memberDAO.selectByName(""),forResult);
         recyclerView.setAdapter(listMemberRecycleAdapter);
 
         SearchView searchView = findViewById(R.id.searchView);
