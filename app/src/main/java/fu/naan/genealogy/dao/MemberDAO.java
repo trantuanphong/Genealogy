@@ -26,7 +26,7 @@ public class MemberDAO extends DAO{
         values.put(DatabaseHandler.MEMBER_COLUMN_DOB, member.getDOB().toString());
         values.put(DatabaseHandler.MEMBER_COLUMN_DOD, member.getDOD().toString());
         values.put(DatabaseHandler.MEMBER_COLUMN_AVATAR, member.getAvatar());
-        values.put(DatabaseHandler.MEMBER_COLUMN_IS_ALIVE, member.getIsAlive());
+//        values.put(DatabaseHandler.MEMBER_COLUMN_IS_ALIVE, member.getIsAlive());
         values.put(DatabaseHandler.MEMBER_COLUMN_MOTHER, member.getMotherID());
         values.put(DatabaseHandler.MEMBER_COLUMN_FATHER, member.getFatherID());
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
