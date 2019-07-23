@@ -11,4 +11,22 @@
     <string name="gu3">Generation U3</string>
     <string name="gu4">Generation U4</string>
     <string name="gu5">Generation U5</string>
+    <string name="add_lbl_title">NEW MEMBER</string>
+    <string name="add_lbl_name">Name</string>
+    <string name="add_txt_name">Enter member name</string>
+    <string name="add_lbl_gender">Gender</string>
+    <string name="add_rd_male">Male</string>
+    <string name="add_rd_female">Female</string>
+    <string name="add_lbl_avatar">Avatar</string>
+    <string name="add_lbl_dob">Date of Birth</string>
+    <string name="add_lbl_relationship_with">Relationship with</string>
+    <string name="add_lbl_relationship_type">Relationship type</string>
+    <string name="add_rd_parents">Parents</string>
+    <string name="add_rd_partner">Partner</string>
+    <string name="add_rd_children">Children</string>
+    <string name="add_lbl_paternal">Paternal</string>
+    <string name="add_lbl_maternal">Maternal</string>
+    <string name="add_btn_upload">Upload</string>
+    <string name="add_btn_add">Create</string>
+    <string name="add_lbl_dod">Date of Death</string>
 </resources>

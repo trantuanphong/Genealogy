@@ -8,10 +8,9 @@ public class Member {
     private Date DOB;
     private Date DOD;
     private int gender;
-    private int isAlive;
     private String avatar;
-    private String motherID;
-    private String fatherID;
+    private int motherID;
+    private int fatherID;
 
     public Member() {
     }
@@ -36,26 +35,23 @@ public class Member {
         this.memberName = memberName;
         this.DOB = DOB;
         this.DOD = DOD;
-        this.isAlive = isAlive;
         this.avatar = avatar;
     }
 
-    public Member(String memberName, Date DOB, Date DOD, int isAlive, String avatar, String motherID, String fatherID) {
+    public Member(String memberName, Date DOB, Date DOD, String avatar, int motherID, int fatherID) {
         this.memberName = memberName;
         this.DOB = DOB;
         this.DOD = DOD;
-        this.isAlive = isAlive;
         this.avatar = avatar;
         this.motherID = motherID;
         this.fatherID = fatherID;
     }
 
-    public Member(int memberID, String memberName, Date DOB, Date DOD, int isAlive, String avatar, String motherID, String fatherID) {
+    public Member(int memberID, String memberName, Date DOB, Date DOD, String avatar, int motherID, int fatherID) {
         this.memberID = memberID;
         this.memberName = memberName;
         this.DOB = DOB;
         this.DOD = DOD;
-        this.isAlive = isAlive;
         this.avatar = avatar;
         this.motherID = motherID;
         this.fatherID = fatherID;
@@ -93,14 +89,6 @@ public class Member {
         this.DOD = DOD;
     }
 
-    public int getIsAlive() {
-        return isAlive;
-    }
-
-    public void setIsAlive(int isAlive) {
-        this.isAlive = isAlive;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -109,19 +97,19 @@ public class Member {
         this.avatar = avatar;
     }
 
-    public String getMotherID() {
+    public int getMotherID() {
         return motherID;
     }
 
-    public void setMotherID(String motherID) {
+    public void setMotherID(int motherID) {
         this.motherID = motherID;
     }
 
-    public String getFatherID() {
+    public int getFatherID() {
         return fatherID;
     }
 
-    public void setFatherID(String fatherID) {
+    public void setFatherID(int fatherID) {
         this.fatherID = fatherID;
     }
 
